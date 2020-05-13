@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         screenHeight = displayMetrics.heightPixels
         screenWidth = displayMetrics.widthPixels
 
-        binding.btnCreateDuck.setOnClickListener { createDuck() }
+        binding.btnCreateDuck.setOnClickListener { flyLittleDuck() }
         binding.btnResetScreen.setOnClickListener { resetScreen() }
     }
 
@@ -48,16 +48,17 @@ class MainActivity : AppCompatActivity() {
         DECOY_DUCK -> DecoyDuck()
     }
 
-    private fun createDuck() {
-        val xPosition = secureRandom.nextInt(screenWidth).toFloat()
+    private fun flyLittleDuck() {
         val yPosition = secureRandom.nextInt((screenHeight - (screenHeight / 2))).toFloat()
 
         ducks.add(randomizeDuck().apply {
-            display(binding.root.container, xPosition, yPosition)
+            display(binding.root.container)
+            fly(screenWidth.toFloat(), yPosition)
         })
     }
 
     private fun resetScreen() {
+        ducks.forEach { it.stopFlying() }
         binding.root.container.removeAllViews()
         ducks.clear()
     }

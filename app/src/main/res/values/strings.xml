@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">PracticingDesignPatterns</string>
-    <string name="text_create_duck">Create Duck</string>
+    <string name="text_fly_duck">Fly Duck, Fly!</string>
     <string name="text_reset_screen">Reset</string>
 </resources>

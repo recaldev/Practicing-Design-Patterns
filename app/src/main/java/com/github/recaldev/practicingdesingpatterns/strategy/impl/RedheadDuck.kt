@@ -8,11 +8,11 @@ import com.github.recaldev.practicingdesingpatterns.strategy.Duck
 class RedheadDuck : Duck() {
 
     override fun quack() {
-        TODO("Not yet implemented")
+        // Quaking like a duck...
     }
 
     override fun swim() {
-        TODO("Not yet implemented")
+        // Swimming like a duck...
     }
 
     override fun resource(): Int = R.drawable.ic_red_head_duck
