@@ -8,7 +8,7 @@ import com.github.recaldev.practicingdesingpatterns.strategy.Duck
 class RubberDuck : Duck() {
 
     override fun quack() {
-        // Quaking like a duck...
+        // Quaking like a duck? But I'm no real duck!
     }
 
     override fun swim() {
