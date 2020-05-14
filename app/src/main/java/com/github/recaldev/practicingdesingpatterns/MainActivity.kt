@@ -7,6 +7,8 @@ import com.github.recaldev.practicingdesingpatterns.databinding.ActivityMainBind
 import com.github.recaldev.practicingdesingpatterns.strategy.Duck
 import com.github.recaldev.practicingdesingpatterns.strategy.Duck.DuckType
 import com.github.recaldev.practicingdesingpatterns.strategy.Duck.DuckType.*
+import com.github.recaldev.practicingdesingpatterns.strategy.behavior.impl.FlyRocketPowered
+import com.github.recaldev.practicingdesingpatterns.strategy.behavior.impl.Quack
 import com.github.recaldev.practicingdesingpatterns.strategy.impl.DecoyDuck
 import com.github.recaldev.practicingdesingpatterns.strategy.impl.MallardDuck
 import com.github.recaldev.practicingdesingpatterns.strategy.impl.RedheadDuck
@@ -37,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         screenHeight = displayMetrics.heightPixels
         screenWidth = displayMetrics.widthPixels
 
-        binding.btnCreateDuck.setOnClickListener { flyLittleDuck() }
+        binding.btnCreateDuck.setOnClickListener { dynamicDuck() }
         binding.btnResetScreen.setOnClickListener { resetScreen() }
     }
 
@@ -55,6 +57,22 @@ class MainActivity : AppCompatActivity() {
             display(binding.root.container)
             performQuack()
             performFly(screenWidth.toFloat(), yPosition)
+        })
+    }
+
+    private fun dynamicDuck() {
+        ducks.add(DecoyDuck().apply {
+            display(binding.root.container)
+
+            // Dynamic Fly
+            performFly(0f, 0f)
+            setFlyingBehavior(FlyRocketPowered())
+            performFly(0f, 0f)
+
+            // Dynamic Quack
+            performQuack()
+            setQuackingBehavior(Quack())
+            performQuack()
         })
     }
 

@@ -26,6 +26,14 @@ abstract class Duck {
     abstract fun resource(): Int
     abstract fun size(resources: Resources): Int
 
+    fun setFlyingBehavior(flyBehavior: FlyBehavior) {
+        this.flyBehavior = flyBehavior
+    }
+
+    fun setQuackingBehavior(quackBehavior: QuackBehavior) {
+        this.quackBehavior = quackBehavior
+    }
+
     fun display(root: ViewGroup) {
         if (::duckImage.isInitialized.not()) {
             duckImage = ImageView(root.context)
