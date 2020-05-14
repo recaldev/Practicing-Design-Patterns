@@ -5,6 +5,6 @@ import com.github.recaldev.practicingdesingpatterns.strategy.behavior.QuackBehav
 class Quack : QuackBehavior {
 
     override fun quack() {
-        // Quack like a duck...
+        println("Quack like a real duck...")
     }
 }

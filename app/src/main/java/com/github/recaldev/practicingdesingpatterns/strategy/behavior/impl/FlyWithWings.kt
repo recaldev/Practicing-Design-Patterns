@@ -50,6 +50,7 @@ class FlyWithWings : FlyBehavior {
                 }
 
                 duckImage.startAnimation(leftToRightTranslate)
+                println("Look at me mom! I'm flying!")
             }
         })
     }

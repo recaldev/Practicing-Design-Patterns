@@ -5,6 +5,6 @@ import com.github.recaldev.practicingdesingpatterns.strategy.behavior.QuackBehav
 class MuteQuack : QuackBehavior {
 
     override fun quack() {
-        // Sorry bro, I don't know how to do that...
+        println("Sorry bro, I don't know how to quack...")
     }
 }

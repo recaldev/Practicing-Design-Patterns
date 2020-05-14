@@ -4,11 +4,14 @@ import android.content.res.Resources
 import android.util.TypedValue
 import com.github.recaldev.practicingdesingpatterns.R
 import com.github.recaldev.practicingdesingpatterns.strategy.Duck
+import com.github.recaldev.practicingdesingpatterns.strategy.behavior.impl.FlyWithWings
+import com.github.recaldev.practicingdesingpatterns.strategy.behavior.impl.Quack
 
 class RedheadDuck : Duck() {
 
-    override fun quack() {
-        // Quaking like a duck...
+    init {
+        flyBehavior = FlyWithWings()
+        quackBehavior = Quack()
     }
 
     override fun swim() {

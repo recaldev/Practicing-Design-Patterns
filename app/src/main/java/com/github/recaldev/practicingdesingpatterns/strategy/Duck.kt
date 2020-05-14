@@ -4,15 +4,11 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.Animation
-import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.WRAP_CONTENT
-
-private const val ANIMATION_DURATION = 2000L
+import com.github.recaldev.practicingdesingpatterns.strategy.behavior.FlyBehavior
+import com.github.recaldev.practicingdesingpatterns.strategy.behavior.QuackBehavior
 
 abstract class Duck {
 
@@ -21,12 +17,11 @@ abstract class Duck {
     }
 
     private lateinit var duckBitmap: Bitmap
-    private lateinit var leftToRightTranslate: TranslateAnimation
-    private lateinit var rightToLeftTranslate: TranslateAnimation
+    protected lateinit var flyBehavior: FlyBehavior
+    protected lateinit var quackBehavior: QuackBehavior
 
     lateinit var duckImage: ImageView
 
-    abstract fun quack()
     abstract fun swim()
     abstract fun resource(): Int
     abstract fun size(resources: Resources): Int
@@ -49,49 +44,9 @@ abstract class Duck {
         }
     }
 
-    fun fly(xPosition: Float, yPosition: Float) {
-        duckImage.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                duckImage.viewTreeObserver.removeOnGlobalLayoutListener(this)
+    fun performQuack() = quackBehavior.quack()
 
-                val duckWidth = duckImage.width.toFloat()
+    fun performFly(xPosition: Float, yPosition: Float) = flyBehavior.fly(duckImage, xPosition, yPosition)
 
-                leftToRightTranslate = TranslateAnimation(-duckWidth, xPosition + duckWidth, yPosition, yPosition).apply {
-                    duration = ANIMATION_DURATION
-                    interpolator = AccelerateDecelerateInterpolator()
-                    setAnimationListener(object : Animation.AnimationListener {
-                        override fun onAnimationEnd(animation: Animation) {
-                            duckImage.scaleX = -1f
-                            duckImage.startAnimation(rightToLeftTranslate)
-                        }
-
-                        override fun onAnimationRepeat(animation: Animation) = Unit
-                        override fun onAnimationStart(animation: Animation) = Unit
-                    })
-                }
-
-                rightToLeftTranslate = TranslateAnimation(xPosition + duckWidth, -duckWidth, yPosition, yPosition).apply {
-                    duration = ANIMATION_DURATION
-                    interpolator = AccelerateDecelerateInterpolator()
-                    setAnimationListener(object : Animation.AnimationListener {
-                        override fun onAnimationEnd(animation: Animation?) {
-                            duckImage.scaleX = 1f
-                            duckImage.startAnimation(leftToRightTranslate)
-                        }
-
-                        override fun onAnimationRepeat(animation: Animation) = Unit
-                        override fun onAnimationStart(animation: Animation) = Unit
-                    })
-                }
-
-                duckImage.startAnimation(leftToRightTranslate)
-            }
-        })
-    }
-
-    fun stopFlying() {
-        duckImage.clearAnimation()
-        leftToRightTranslate = TranslateAnimation(0f, 0f, 0f, 0f)
-        rightToLeftTranslate = TranslateAnimation(0f, 0f, 0f, 0f)
-    }
+    fun stopFlying() = duckImage.clearAnimation()
 }

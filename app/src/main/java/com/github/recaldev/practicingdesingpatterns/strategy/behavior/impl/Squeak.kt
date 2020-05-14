@@ -5,6 +5,6 @@ import com.github.recaldev.practicingdesingpatterns.strategy.behavior.QuackBehav
 class Squeak : QuackBehavior {
 
     override fun quack() {
-        // Quack with a squeak sound...
+        println("Quack with a squeak sound...")
     }
 }

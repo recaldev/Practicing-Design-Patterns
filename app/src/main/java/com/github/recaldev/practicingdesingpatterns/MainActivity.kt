@@ -53,7 +53,8 @@ class MainActivity : AppCompatActivity() {
 
         ducks.add(randomizeDuck().apply {
             display(binding.root.container)
-            fly(screenWidth.toFloat(), yPosition)
+            performQuack()
+            performFly(screenWidth.toFloat(), yPosition)
         })
     }
 
